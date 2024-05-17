@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gallery_images",
+  "info": {
+    "singularName": "gallery-image",
+    "pluralName": "gallery-images",
+    "displayName": "GalleryImage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "rating": {
+      "type": "integer",
+      "max": 5,
+      "default": 0,
+      "min": 0
+    },
+    "webSizeImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "fullSizeImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "gallerySections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::gallery-section.gallery-section",
+      "inversedBy": "galleryImages"
+    }                    
+  }
+}

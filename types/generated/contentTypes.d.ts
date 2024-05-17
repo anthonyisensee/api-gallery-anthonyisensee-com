@@ -788,6 +788,137 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiGalleryGallery extends Schema.CollectionType {
+  collectionName: 'galleries';
+  info: {
+    singularName: 'gallery';
+    pluralName: 'galleries';
+    displayName: 'Gallery';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    published: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    eventDate: Attribute.Date & Attribute.Private;
+    gallerySections: Attribute.Relation<
+      'api::gallery.gallery',
+      'manyToMany',
+      'api::gallery-section.gallery-section'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::gallery.gallery',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::gallery.gallery',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGalleryImageGalleryImage extends Schema.CollectionType {
+  collectionName: 'gallery_images';
+  info: {
+    singularName: 'gallery-image';
+    pluralName: 'gallery-images';
+    displayName: 'GalleryImage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    rating: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 5;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    webSizeImage: Attribute.Media & Attribute.Required;
+    fullSizeImage: Attribute.Media & Attribute.Required;
+    gallerySections: Attribute.Relation<
+      'api::gallery-image.gallery-image',
+      'manyToMany',
+      'api::gallery-section.gallery-section'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::gallery-image.gallery-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::gallery-image.gallery-image',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGallerySectionGallerySection extends Schema.CollectionType {
+  collectionName: 'gallery_sections';
+  info: {
+    singularName: 'gallery-section';
+    pluralName: 'gallery-sections';
+    displayName: 'GallerySection';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    galleries: Attribute.Relation<
+      'api::gallery-section.gallery-section',
+      'manyToMany',
+      'api::gallery.gallery'
+    >;
+    galleryImages: Attribute.Relation<
+      'api::gallery-section.gallery-section',
+      'manyToMany',
+      'api::gallery-image.gallery-image'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::gallery-section.gallery-section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::gallery-section.gallery-section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +937,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::gallery.gallery': ApiGalleryGallery;
+      'api::gallery-image.gallery-image': ApiGalleryImageGalleryImage;
+      'api::gallery-section.gallery-section': ApiGallerySectionGallerySection;
     }
   }
 }
