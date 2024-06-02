@@ -8,7 +8,9 @@
 
 ## Purpose of api.gallery.anthonyisensee.com
 
-Quickly build a backend using strapi.js to facilitate image and content delivery to gallery.anthonyisensee.com via a flexible API. While a more thorough API may eventually be built long term, strapi.js provides an option to quickly complete the back end and thus be able to rapidly protytpe the front end.
+Facilitate image and content delivery to gallery.anthonyisensee.com via a flexible API.
+
+While an API specifically tailored ot the needs of the gallery product may eventually be built long term, strapi.js provides an option to quickly complete the back end and thus be able to rapidly protytpe the front end.
 
 ## Strapi Guide
 
